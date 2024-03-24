@@ -6,22 +6,13 @@
     <title>SEARCH</title>
 </head>
 <body>
-    <form method="POST" action="{{ url_for('search') }}">
-        <select name="field">
-            <option value="name">Name</option>
-            <option value="type">Type</option>
-            <option value="abv">ABV</option>
-            <option value="mixes">Mixes</option>
-        </select>
-        <input type="text" name="query" placeholder="Enter your search query">
-        <button type="submit">Search</button>
-    </form>
+    <a href="{{ url_for('dashboard') }}">Home</a>
 
     {% if results %}
-        <h2>results</h2>
+        <h2>Results</h2>
         <ul>
             {% for result in results %}
-                <li>{{ result }}</li>  <!-- Display your search results here -->
+                <li><a href="{{ url_for('details', result = result) }}">{{ result }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}

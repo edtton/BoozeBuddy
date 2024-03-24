@@ -6,12 +6,25 @@
     <title>DASHBOARD</title>
 </head>
 <body>
+    <a href="{{ url_for('dashboard') }}">Home</a>
+
     <h1>Welcome, {{ user.name }}!</h1>
     <p>Your height is {{ user.height }} inches and your weight is {{ user.weight }} lbs.</p>
     <p>A US standard drink contains 14g of pure alcohol: these include 12oz of 5%ABV beer, 5oz of 12%ABV wine, and 1.5oz of 40%ABV distilled spirits.</p>
     <p>You are a {{ user.gender }} so your Widemark factor = {{ widmark }}.</p>
     <p>After a single 12oz regular beer, your BAC will be approximately {{ bac }}</p>
 
-    <a href="{{ url_for('search') }}">Search</a>
+    <form method="POST" action="{{ url_for('search') }}">
+        <select name="field">
+            <option value="name">Name</option>
+            <option value="type">Type</option>
+            <option value="abv">ABV</option>
+            <option value="mixes">Mixes</option>
+        </select>
+        <input type="text" name="query" placeholder="Enter your search query">
+        <button type="submit">Search</button>
+    </form>
+
+
 </body>
 </html>

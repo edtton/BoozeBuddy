@@ -13,7 +13,7 @@ genders = ['Male', 'Female']
 
 @app.route('/')
 def default():
-    return render_template('login.html')
+    return render_template('home-page-booze-buddy.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -82,9 +82,19 @@ def dashboard():
 # @app.route('/search', methods=['GET', 'POST'])
 # def search():
 #     if request.method == 'POST':
+#         field = request.form.get('field')
 #         query = request.form.get('query')
-#         results = db.drinks.find({'$text': {'$search': query}})
-#         return render_template('search.html', results=results, query=query)
+#         if field == 'name':
+#             results = db.drinks.find({'name': {'$regex': query, '$options': 'i'}})
+#         elif field == 'type':
+#             results = db.drinks.find({'type': query})
+#         elif field == 'abv':
+#             results = db.drinks.find({'abv': query})
+#         elif field == 'mixes':
+#             results = db.drinks.find({'mixes': query})
+#         else:
+#             results = None
+#         return render_template('search.html', results = results)
 #     return render_template('search.html')
 
 @app.route('/search', methods=['GET', 'POST'])
