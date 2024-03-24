@@ -13,7 +13,9 @@ genders = ['Male', 'Female']
 
 @app.route('/')
 def default():
-    return render_template('home-page-booze-buddy.html')
+    user = session.get('user')
+    name = user.get('name')
+    return render_template('home-page-booze-buddy.html', name = name)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -47,7 +49,7 @@ def signup():
 
         return redirect(url_for('login'))
 
-    return render_template('signup.html', genders = genders)
+    return render_template('index.html', genders = genders)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -63,7 +65,7 @@ def login():
             existing_user['_id'] = str(existing_user['_id'])
             session['user'] = existing_user
 
-            return redirect('/dashboard')  # Redirect if user doesn't exist
+            return redirect('/')  # Redirect if user doesn't exist
 
     return render_template('login.html')  # Redirect only if user exists and password matches
 
@@ -78,24 +80,6 @@ def dashboard():
     bac = round(14 / (user.get('weight') * 453.6 * widmark) * 100, 2)
 
     return render_template('dashboard.html', user = user, widmark = widmark, bac = bac)
-
-# @app.route('/search', methods=['GET', 'POST'])
-# def search():
-#     if request.method == 'POST':
-#         field = request.form.get('field')
-#         query = request.form.get('query')
-#         if field == 'name':
-#             results = db.drinks.find({'name': {'$regex': query, '$options': 'i'}})
-#         elif field == 'type':
-#             results = db.drinks.find({'type': query})
-#         elif field == 'abv':
-#             results = db.drinks.find({'abv': query})
-#         elif field == 'mixes':
-#             results = db.drinks.find({'mixes': query})
-#         else:
-#             results = None
-#         return render_template('search.html', results = results)
-#     return render_template('search.html')
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -114,6 +98,10 @@ def search():
             results = None
         return render_template('search.html', results = results)
     return render_template('search.html')
+
+@app.route('/resources')
+def resources():
+    return render_template('resources-boozebuddy.html')
     
 
 if __name__ == '__main__':

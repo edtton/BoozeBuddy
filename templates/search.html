@@ -9,10 +9,10 @@
     <a href="{{ url_for('dashboard') }}">Home</a>
 
     {% if results %}
-        <h2>Results</h2>
+        <h2>results</h2>
         <ul>
             {% for result in results %}
-                <li><a href="{{ url_for('details', result = result) }}">{{ result }}</a></li>
+                <li>{{ result }}</li>  <!-- Display your search results here -->
             {% endfor %}
         </ul>
     {% endif %}
