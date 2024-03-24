@@ -1,23 +1,44 @@
-from flask import Flask
+from bson import ObjectId
+from flask import Flask, session
 from pymongo import MongoClient
 from flask_login import LoginManager
 from flask import Flask, render_template, request, redirect, url_for
-from pymongo import MongoClient
 from flask import session
-from bson import ObjectId 
 import requests
 from bs4 import BeautifulSoup
 import os
 from dotenv import load_dotenv
 from propelauth_flask import init_auth, current_user, current_org
+from tensorflow import keras
+import numpy as np
+import random
 
 app = Flask(__name__)
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb://localhost:3017/')
 db = client['BoozeBuddy']
 genders = ['Male', 'Female']
 
 @app.route('/')
 def default():
+    user = session.get('user')
+    if user is None:
+        # Handle the case where there is no user in the session.
+        # For example, redirect to the login page or return a message.
+        return redirect(url_for('details'))
+
+    name = user.get('name')
+    weight = user.get('weight')
+    height = user.get('height')
+    gender = user.get('gender')
+
+    widmark = 0.55 
+    if gender == 'Male': 
+        widmark = 0.68 
+
+    bac = round(14 / (weight * 453.6 * widmark) * 100, 2)
+    downtime = round((bac/0.015), 2)
+
+    return render_template('home-page-booze-buddy.html', downtime=downtime, name=name, gender=gender, weight=weight, height=height, user=user, widmark=widmark, bac=bac)
     user = session.get('user')
     name = user.get('name')
     weight = user.get('weight')
@@ -165,6 +186,35 @@ def logout():
     session.clear()
 
     return redirect(url_for('signup'))
+
+@app.route('/recommendations')
+def recommendations():
+    if (db.users.liked.length > 0):
+        model = keras.load_models('model.h5')
+        random_numbers = [random.randint(0, 99) for _ in range(20)]
+        input_data = np.array(random_numbers).reshape(1, -1)
+        prediction = model.predict(input_data)
+        print("Prediction:", prediction)
+        return render_template('recommendations.html', prediction = prediction)
+    return render_template('recommendations.html')
+
+
+
+def predict_with_random_numbers(model):
+    random_numbers = [random.randint(0, 99) for _ in range(20)]
+
+    input_data = np.array(random_numbers).reshape(1, -1)
+    
+    prediction = model.predict(input_data)
+    
+    print("Random Numbers:", random_numbers)
+    print("Prediction:", prediction)
+    
+    return prediction
+
+model = keras.load_models('model.h5')
+
+predict_with_random_numbers(model)
 
 # @app.route('/update', methods=['POST'])
 # def update_user():
