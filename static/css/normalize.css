@@ -126,6 +126,7 @@ samp {
   font-family: monospace, monospace;
   font-size: 1em;
 }
+
 button,
 input,
 optgroup,
@@ -142,10 +143,12 @@ textarea {
 button {
   overflow: visible;
 }
+
 button,
 select {
   text-transform: none;
 }
+
 button,
 html input[type="button"],
 input[type="reset"] {
@@ -154,32 +157,22 @@ input[type="reset"] {
   cursor: pointer;
   /* 3 */
 }
+
 button[disabled],
 html input[disabled] {
   cursor: default;
 }
-/**
- * Remove inner padding and border in Firefox 4+.
- */
+
 button::-moz-focus-inner,
 input::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
-/**
- * Address Firefox 4+ setting `line-height` on `input` using `!important` in
- * the UA stylesheet.
- */
+
 input {
   line-height: normal;
 }
-/**
- * It's recommended that you don't attempt to style these elements.
- * Firefox's implementation doesn't respect box-sizing, padding, or width.
- *
- * 1. Address box sizing set to `content-box` in IE 8/9/10.
- * 2. Remove excess padding in IE 8/9/10.
- */
+
 input[type='checkbox'],
 input[type='radio'] {
   box-sizing: border-box;
@@ -187,69 +180,43 @@ input[type='radio'] {
   padding: 0;
   /* 2 */
 }
-/**
- * Fix the cursor style for Chrome's increment/decrement buttons. For certain
- * `font-size` values of the `input`, it causes the cursor style of the
- * decrement button to change from `default` to `text`.
- */
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   height: auto;
 }
-/**
- * 1. CUSTOM FOR WEBFLOW: changed from `textfield` to `none` to normalize iOS rounded input
- * 2. CUSTOM FOR WEBFLOW: box-sizing: content-box rule removed
- *    (similar to normalize.css >=4.0.0)
- */
+
 input[type='search'] {
   -webkit-appearance: none;
   /* 1 */
 }
-/**
- * Remove inner padding and search cancel button in Safari and Chrome on OS X.
- * Safari (but not Chrome) clips the cancel button when the search input has
- * padding (and `textfield` appearance).
- */
+
 input[type='search']::-webkit-search-cancel-button,
 input[type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-/**
- * Define consistent border, margin, and padding.
- */
+
 fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em;
 }
-/**
- * 1. Correct `color` not being inherited in IE 8/9/10/11.
- * 2. Remove padding so people aren't caught out if they zero out fieldsets.
- */
+
 legend {
   border: 0;
   /* 1 */
   padding: 0;
   /* 2 */
 }
-/**
- * Remove default vertical scrollbar in IE 8/9/10/11.
- */
+
 textarea {
   overflow: auto;
 }
-/**
- * Don't inherit the `font-weight` (applied by a rule above).
- * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
- */
+
 optgroup {
   font-weight: bold;
 }
-/* Tables
-   ========================================================================== */
-/**
- * Remove most spacing between table cells.
- */
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
