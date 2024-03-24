@@ -421,6 +421,7 @@
 
 .section-5 {
   background-color: var(--bone-white);
+  border-radius: 20px;
   justify-content: center;
   display: flex;
 }
@@ -669,6 +670,7 @@
 .div-block-20 {
   grid-column-gap: 69px;
   grid-row-gap: 69px;
+  justify-content: center;
   display: flex;
 }
 
@@ -695,6 +697,13 @@
   background-color: var(--blue);
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+}
+
+.circle {
+  width: 116px;
+  height: 113px;
+  background-color: var(--bone-white);
+  border-radius: 124px 98px 139px 110px;
 }
 
 @media screen and (max-width: 991px) {
@@ -754,3 +763,5 @@
     display: flex;
   }
 }
+
+
