@@ -213,7 +213,11 @@
                     
                     <input type="submit" data-wait="Please wait..." class="submit-button w-button" value="Sign Up">
 
-                    <input type="submit" href="{{ url_for('login') }}" data-wait="Please wait..." class="submit-button w-button" value="Log in">
+                    <input style="background-color: var(--blue);
+                    font-family: var(--paragraph);
+                    color: var(--bone-white);
+                    margin-bottom: 5px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);" href="{{ url_for('login') }}" data-wait="Please wait..." class="submit-button w-button" value="Log in">
                 </form>
 
                 <div class="w-form-done">

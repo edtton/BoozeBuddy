@@ -15,7 +15,17 @@ genders = ['Male', 'Female']
 def default():
     user = session.get('user')
     name = user.get('name')
-    return render_template('home-page-booze-buddy.html', name = name)
+    weight = user.get('weight')
+    height = user.get('height')
+    gender = user.get('gender')
+
+    widmark = 0.55 
+    if gender == 'Male': 
+        widmark = 0.68 
+
+    bac = round(14 / (user.get('weight') * 453.6 * widmark) * 100, 2)
+
+    return render_template('home-page-booze-buddy.html', name = name, gender = gender, weight = weight, height = height, user = user, widmark = widmark, bac = bac)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -89,11 +99,11 @@ def search():
         if field == 'name':
             results = db.drinks.find({'name': {'$regex': query, '$options': 'i'}})
         elif field == 'type':
-            results = db.drinks.find({'type': query})
+            results = db.drinks.find({'type': {'$regex': query, '$options': 'i'}})
         elif field == 'abv':
-            results = db.drinks.find({'abv': query})
+            results = db.drinks.find({'abv': {'$regex': query, '$options': 'i'}})
         elif field == 'mixes':
-            results = db.drinks.find({'mixes': query})
+            results = db.drinks.find({'mixes': {'$regex': query, '$options': 'i'}})
         else:
             results = None
         return render_template('search.html', results = results)
