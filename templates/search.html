@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEARCH</title>
 </head>
+
 <body>
     <a href="{{ url_for('dashboard') }}">Home</a>
+
+    <form method="POST" action="{{ url_for('search') }}" id="email-form" name="email-form" data-name="Email Form"
+        class="form-3" data-wf-page-id="65ff7033bc45147e21ffb183"
+        data-wf-element-id="40d391d9-0643-fe48-4b34-604a53b80982">
+
+        <select name="field">
+            <option value="name">Name</option>
+            <option value="type">Type</option>
+            <option value="abv">ABV</option>
+            <option value="mixes">Mixes</option>
+        </select>
+        <input class="w-input" maxlength="256" name="query" data-name="Name" placeholder="Search for a drink..."
+            type="text" id="name" required="">
+        <input type="submit" data-wait="Please wait..." class="submit-button-2 w-button" value="🔍"">
+  </form>
 
     {% if results %}
         <h2>results</h2>

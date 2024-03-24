@@ -35,14 +35,19 @@
                          {{ url_for('static', filename='images/BoozeBuddy_transparent-p-800.png') }} 800w,
                          {{ url_for('static', filename='images/BoozeBuddy_transparent-p-1080.png') }} 1080w,
                          {{ url_for('static', filename='images/BoozeBuddy_transparent.png') }} 1200w">
+                         <div>BoozeBuddy</div>
       </a>
 
       <div>BoozeBuddy</div>
       </a>
       <nav role="navigation" class="nav-menu w-nav-menu">
+        <a href="{{ url_for('default') }}" class="navbar w-nav-link">Home</a>
+        <a href="{{ url_for('search') }}" class="navbar w-nav-link">Search</a>
+        <a href="{{ url_for('terms') }}" class="navbar w-nav-link">Terms</a>
         <a href="{{ url_for('resources') }}" class="navbar w-nav-link">Resources</a>
         <a href="#" class="navbar w-nav-link">Recommendations</a>
-        <a href="#" class="navbar cta w-nav-link">Profile</a>
+        <a href="{{ url_for('profile') }}" class="navbar cta w-nav-link">Profile</a>
+        <a href="{{ url_for('logout') }}" class="navbar cta w-nav-link">Logout</a>
       </nav>
       <div class="menu-button w-nav-button">
         <div class="w-icon-nav-menu"></div>
@@ -67,10 +72,10 @@
     <div class="w-layout-blockcontainer container-home w-container">
       <div class="form-block-4 w-form">
 
-        <form method="POST" action="{{ url_for('search') }}" id="email-form" name="email-form" data-name="Email Form"
+        <!-- <form method="POST" action="{{ url_for('search') }}" id="email-form" name="email-form" data-name="Email Form"
           class="form-3" data-wf-page-id="65ff7033bc45147e21ffb183"
           data-wf-element-id="40d391d9-0643-fe48-4b34-604a53b80982">
-          
+
 
           <select name="field">
             <option value="name">Name</option>
@@ -78,8 +83,8 @@
             <option value="abv">ABV</option>
             <option value="mixes">Mixes</option>
           </select>
-          <input class="w-input" maxlength="256" name="query" data-name="Name" placeholder="Search for a drink..." type="text"
-            id="name" required="">
+          <input class="w-input" maxlength="256" name="query" data-name="Name" placeholder="Search for a drink..."
+            type="text" id="name" required="">
           <input type="submit" data-wait="Please wait..." class="submit-button-2 w-button" value="🔍"">
         </form>
         <div class=" w-form-done">
@@ -87,7 +92,7 @@
       </div>
       <div class="w-form-fail">
         <div>Oops! Something went wrong while submitting the form.</div>
-      </div>
+      </div> -->
     </div>
     <!-- <div class="div-block-7">
         <div>Let&#x27;s look up some intresting drinks!</div>
@@ -104,12 +109,12 @@
         </div>
       </div> -->
 
-      <div class="div-block-8">
+      <div class="div-block-8" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);">
         <div class="text-block-4"><strong class="bold-text">Know Your Limits!</strong></div>
         <div class="div-block-9">Based on Your Stats
           <p class="paragraph-3">After a single 12oz beer, your BAC would be approximately:</p>
           <div class="text-block-5" style="font-size: 40px;">{{ bac }}%</div>
-          <div class="text-block-5">You are a {{ height }} in. tall, {{ weight }} lbs. {{ gender }}</div>
+          <div class="text-block-5" style="text-align: center;">You are a {{ height }} in. tall, {{ weight }} lbs. {{ gender }}.</div>
           <div class="text-block-5">Your Widmark factor is: {{ widmark }}.</div>
         </div>
         <hr>
@@ -117,6 +122,17 @@
           <p class="paragraph-3">The legal limit to drive in VA:</p>
           <div class="text-block-5" style="font-size: 32px;">0.08%</div>
           <br>
+        </div>
+      </div>
+
+      <div class="div-block-8" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);">
+        <div class="text-block-4"><strong class="bold-text">To return to 0% BAC</strong></div>
+        <div class="div-block-9" style="text-align: center;">it would take approximately
+          <br><br>
+          <div class="text-block-5"></div>
+          <div class="text-block-5" style="font-size: 40px;">{{ downtime }}</div>
+          <div class="text-block-5">hours</div>
+          <div class="text-block-5"></div>
         </div>
       </div>
 
