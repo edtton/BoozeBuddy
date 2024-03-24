@@ -6,6 +6,12 @@
     <title>DASHBOARD</title>
 </head>
 <body>
-    <h1>Welcome, {{ user }}</h1>
+    <h1>Welcome, {{ user.name }}!</h1>
+    <p>Your height is {{ user.height }} inches and your weight is {{ user.weight }} lbs.</p>
+    <p>A US standard drink contains 14g of pure alcohol: these include 12oz of 5%ABV beer, 5oz of 12%ABV wine, and 1.5oz of 40%ABV distilled spirits.</p>
+    <p>You are a {{ user.gender }} so your Widemark factor = {{ widmark }}.</p>
+    <p>After a single 12oz regular beer, your BAC will be approximately {{ bac }}</p>
+
+    <a href="{{ url_for('search') }}">Search</a>
 </body>
 </html>

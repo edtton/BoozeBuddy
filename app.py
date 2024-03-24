@@ -9,7 +9,7 @@ from flask import session
 app = Flask(__name__)
 client = MongoClient('mongodb://localhost:27017/')
 db = client['BoozeBuddy']
-ethnicities = ['Asian', 'Black', 'Hispanic', 'White']
+genders = ['Male', 'Female']
 
 @app.route('/')
 def default():
@@ -19,6 +19,8 @@ def default():
 def signup():
     if request.method == 'POST':
         users = db.users
+
+        name = request.form['name']
         email = request.form['email']
 
         # Check if email already exists in the database
@@ -28,15 +30,16 @@ def signup():
 
         password = request.form['password']
         age = request.form['age']
-        ethnicity = request.form['ethnicity']
+        gender = request.form['gender']
         height = float(request.form['height'])
         weight = float(request.form['weight'])
 
         new_user = {
+            'name': name, 
             'email': email,
             'password': password,
             'age': age,
-            'ethnicity': ethnicity,
+            'gender': gender,
             'height': height,
             'weight': weight
         }
@@ -44,7 +47,7 @@ def signup():
 
         return redirect(url_for('login'))
 
-    return render_template('signup.html', ethnicities = ethnicities)
+    return render_template('signup.html', genders = genders)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -59,7 +62,7 @@ def login():
         if existing_user:
             existing_user['_id'] = str(existing_user['_id'])
             session['user'] = existing_user
-            
+
             return redirect('/dashboard')  # Redirect if user doesn't exist
 
     return render_template('login.html')  # Redirect only if user exists and password matches
@@ -67,8 +70,40 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     user = session.get('user')
+    widmark = 0.55 
 
-    return render_template('dashboard.html', user = user)
+    if user.get('gender') == 'Male': 
+        widmark = 0.68 
+
+    bac = round(14 / (user.get('weight') * 453.6 * widmark) * 100, 2)
+
+    return render_template('dashboard.html', user = user, widmark = widmark, bac = bac)
+
+# @app.route('/search', methods=['GET', 'POST'])
+# def search():
+#     if request.method == 'POST':
+#         query = request.form.get('query')
+#         results = db.drinks.find({'$text': {'$search': query}})
+#         return render_template('search.html', results=results, query=query)
+#     return render_template('search.html')
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        field = request.form.get('field')
+        query = request.form.get('query')
+        if field == 'name':
+            results = db.drinks.find({'name': {'$regex': query, '$options': 'i'}})
+        elif field == 'type':
+            results = db.drinks.find({'type': query})
+        elif field == 'abv':
+            results = db.drinks.find({'abv': query})
+        elif field == 'mixes':
+            results = db.drinks.find({'mixes': query})
+        else:
+            results = None
+        return render_template('search.html', results = results)
+    return render_template('search.html')
     
 
 if __name__ == '__main__':

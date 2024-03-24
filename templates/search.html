@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEARCH</title>
+</head>
+<body>
+    <form method="POST" action="{{ url_for('search') }}">
+        <select name="field">
+            <option value="name">Name</option>
+            <option value="type">Type</option>
+            <option value="abv">ABV</option>
+            <option value="mixes">Mixes</option>
+        </select>
+        <input type="text" name="query" placeholder="Enter your search query">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+        <h2>results</h2>
+        <ul>
+            {% for result in results %}
+                <li>{{ result }}</li>  <!-- Display your search results here -->
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</body>
+</html>

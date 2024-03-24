@@ -9,6 +9,9 @@
 
 <body>
     <form action="/signup" method="POST">
+        <label for="name">name</label>
+        <input type="name" id="name" name="name" required><br>
+
         <label for="email">email</label>
         <input type="email" id="email" name="email" required><br>
 
@@ -18,13 +21,11 @@
         <label for="age">age in years</label>
         <input type="text" id="age" name="age" required><br>
 
-        <label for="ethnicity">ethnicity</label><br>
-        <select id="ethnicity" name="ethnicity" required>
-            <option value="" disabled selected>select ethnicity</option>
-            <option value="Asian">Asian</option>
-            <option value="Black">Black</option>
-            <option value="Hispanic">Hispanic</option>
-            <option value="White">White</option>
+        <label for="gender">gender</label><br>
+        <select id="gender" name="gender" required>
+            <option value="" disabled selected>select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
         </select><br><br>
 
         <label for="height">height in inches</label>
